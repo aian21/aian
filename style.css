@@ -2,11 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
 body {
-    background: linear-gradient(135deg, #121812, #2e3d2e);
+    background: linear-gradient(135deg, #121812, #2e3d2e, #4ade80, #1a2a1a);
+    background-size: 200% 200%;
+    animation: moveGradient 15s ease infinite;
     color: #e0e0e0;
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    will-change: background-position;
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
 }
 
 .main-container {
@@ -66,7 +75,6 @@ body {
     justify-content: flex-start;
     align-items: center;
     padding: 20px 15px;
-    border-radius: 10px 0 0 10px;
     background: rgba(30, 50, 30, 0.8);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     flex: 0 0 20%;
@@ -282,23 +290,27 @@ body {
 
 /* Contact Form Styles */
 .contact-form {
-    padding: 12px;
+    padding: 15px;
     background: rgba(30, 50, 30, 0.8);
+}
+
+.form-group {
+    position: relative;
 }
 
 .form-control {
     background: rgba(20, 30, 20, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #e0e0e0;
-    border-radius: 5px;
-    padding: 8px;
+    border-radius: 8px;
+    padding: 10px 10px 10px 40px;
     font-size: 1rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .form-control:focus {
     border-color: #4ade80;
-    box-shadow: 0 0 5px rgba(74, 222, 128, 0.5);
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
     background: rgba(20, 30, 20, 0.8);
     color: #e0e0e0;
 }
@@ -307,10 +319,16 @@ body {
     color: #a0a0a0;
 }
 
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+}
+
 .form-label {
     color: #e0e0e0;
     font-size: 1rem;
     font-weight: 500;
+    margin-bottom: 8px;
     transition: color 0.2s ease;
 }
 
@@ -318,25 +336,71 @@ body {
     color: #4ade80;
 }
 
-textarea.form-control {
-    resize: vertical;
-    min-height: 100px;
-    max-height: 200px;
+.input-group {
+    position: relative;
 }
 
-.btn-contact {
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #4ade80;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    max-height: 250px;
+    padding-top: 10px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-success {
+    color: #4ade80;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(74, 222, 128, 0.2);
+    border-radius: 5px;
+    text-align: center;
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.btn-contact, .btn-clear {
     background: rgba(74, 222, 128, 0.3);
     color: #e0e0e0;
     border: 1px solid rgba(74, 222, 128, 0.6);
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.btn-contact:hover {
+.btn-contact:hover, .btn-clear:hover {
     background: rgba(74, 222, 128, 0.5);
     color: #fff;
+    transform: scale(1.05);
+}
+
+.btn-clear {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-clear:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Hobbies & Projects Styles */
@@ -466,6 +530,7 @@ textarea.form-control {
 
 /* Footer Styles */
 footer {
+    border-radius:5px;
     background: rgba(30, 50, 30, 0.8);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -588,11 +653,25 @@ footer {
 
     .form-control {
         font-size: 0.9rem;
-        padding: 7px;
+        padding: 8px 8px 8px 36px;
     }
 
     .form-label {
         font-size: 0.9rem;
+    }
+
+    .input-icon {
+        font-size: 0.9rem;
+        left: 8px;
+    }
+
+    .error-message {
+        font-size: 0.8rem;
+    }
+
+    .form-success {
+        font-size: 0.9rem;
+        padding: 8px;
     }
 }
 
@@ -679,21 +758,44 @@ footer {
     }
 
     .contact-form {
-        padding: 10px;
+        padding: 12px;
     }
 
     .form-control {
         font-size: 0.8rem;
-        padding: 6px;
+        padding: 7px;
+        padding-left: 10px;
     }
 
     .form-label {
         font-size: 0.85rem;
     }
 
-    .btn-contact {
-        padding: 6px 12px;
+    .input-icon {
+        position: static;
+        display: block;
+        margin-bottom: 5px;
+        transform: none;
         font-size: 0.85rem;
+    }
+
+    textarea.form-control {
+        padding-top: 7px;
+    }
+
+    .btn-contact, .btn-clear {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    .error-message {
+        font-size: 0.75rem;
+    }
+
+    .form-success {
+        font-size: 0.85rem;
+        padding: 7px;
     }
 
     .hobby-card img {
@@ -718,6 +820,11 @@ footer {
 
     .subsection-title {
         font-size: 1.1rem;
+    }
+
+    .d-flex.gap-3 {
+        flex-direction: column;
+        gap: 10px;
     }
 
     footer {
@@ -780,21 +887,36 @@ footer {
     }
 
     .contact-form {
-        padding: 8px;
+        padding: 10px;
     }
 
     .form-control {
         font-size: 0.75rem;
-        padding: 5px;
+        padding: 6px;
+        padding-left: 8px;
     }
 
     .form-label {
         font-size: 0.8rem;
     }
 
-    .btn-contact {
-        padding: 5px 10px;
+    .input-icon {
         font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+
+    .btn-contact, .btn-clear {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .error-message {
+        font-size: 0.7rem;
+    }
+
+    .form-success {
+        font-size: 0.8rem;
+        padding: 6px;
     }
 
     .project-card {
